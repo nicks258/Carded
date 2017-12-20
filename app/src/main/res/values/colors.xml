@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="primary">#009688</color>
+  <color name="primary_dark">#008080</color>
+  <color name="primary_darker">#008B8B</color>
+  <color name="accent">#FFFFFF</color>
+
+  <color name="colorPrimary">#3b5bb3</color>
+  <color name="colorPrimaryDark">#303F9F</color>
+  <color name="textColorPrimary">#FFFFFF</color>
+  <color name="windowBackground">#FFFFFF</color>
+  <color name="navigationBarColor">#000000</color>
+  <!--<color name="colorAccent">#ea5d88</color>-->
+
+  <color name="bg_view_sms">#ffd423</color>
+  <color name="bg_view_otp">#fc6d38</color>
+
+  <color name="black">#000000</color>
+  <color name="jet">#222222</color>
+  <color name="oil">#333333</color>
+  <color name="monsoon">#777777</color>
+  <color name="jumbo">#888888</color>
+  <color name="aluminum">#999999</color>
+  <color name="base">#AAAAAA</color>
+  <color name="iron">#CCCCCC</color>
+
+
+  <!--<color name="colorPrimary">#008B8B</color>-->
+  <!--<color name="colorPrimary">#3F51B5</color>-->
+  <!--<color name="colorPrimaryDark">#008000</color>-->
+  <!--<color name="colorPrimaryDark">#303F9F</color>-->
+  <color name="colorAccent">#ea5d88</color>
+
+  <!--<color name="colorAccent">#FF4081</color>-->
+  <color name="background_color">#009688</color>
+  <color name="white_greyish">#EEEEEE</color>
+  <color name="red">#ee2e24</color>
+  <color name="black_overlay">#66000000</color>
+  <color name="white">#fff</color>
+  <color name="transparent">#00000000</color>
+
+  <color name="colorPrimary1">#F50057</color>
+  <color name="colorPrimaryDark1">#F50057</color>
+  <color name="colorAccent1">#FF4081</color>
+  <color name="viewBg">#f1f5f8</color>
+  <color name="album_title">#4c4c4c</color>
+  <color name="over_background">#ffe3e3e3</color>
+  <color name="addition">#008080</color>
+  <color name="add">#008000</color>
+  <color name="support">#008B8B</color>
+  <color name="prim">#2E8B57</color>
+
+</resources>
