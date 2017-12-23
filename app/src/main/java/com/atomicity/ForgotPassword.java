@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -173,96 +174,98 @@ public class ForgotPassword extends AppCompatActivity {
     }
 
     private void updatePassword() {
-        String url = Config.updateForgotPassword;
-        final ProgressDialog progressDialog = new ProgressDialog(ForgotPassword.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-        Log.i("URL->",url);
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Logger.addLogAdapter(new AndroidLogAdapter());
-                        Log.d("Response-> ", response);
-                        progressDialog.dismiss();
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            Logger.json(jsonObject.toString());
-                            if (java.util.Objects.equals(jsonObject.getString("status"), "true"))
-                            {
-
-                                new SweetAlertDialog(ForgotPassword.this,SweetAlertDialog.SUCCESS_TYPE)
-                                        .setTitleText("Password Updated !!")
-                                        .setContentText("" + jsonObject.getString("reason"))
-                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                sDialog.dismissWithAnimation();
-                                                Intent loginIntent = new Intent(ForgotPassword.this,LoginActivity.class);
-                                                startActivity(loginIntent);
-                                                ForgotPassword.this.finish();
-                                            }
-                                        })
-                                        .show();
-
-                            }
-                            else {
-                                new SweetAlertDialog(ForgotPassword.this,SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("Oops...")
-                                        .setContentText("" + jsonObject.getString("reason"))
-                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                sDialog.dismissWithAnimation();
-                                            }
-                                        })
-                                        .show();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        Log.d("Error.Response", error.toString());
-                        new SweetAlertDialog(ForgotPassword.this,SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Oops...")
-                                .setContentText("Network Error !!")
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        sDialog.dismissWithAnimation();
-                                    }
-                                })
-                                .show();
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams()
+//        String password = updatedPassword.getText().toString();
+//        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
+//            updatedPassword.setError("between 4 and 10 alphanumeric characters");
+//        }
+//        else
             {
-                Map<String, String>  params = new HashMap<String, String>();
+            String url = Config.updateForgotPassword;
+            final ProgressDialog progressDialog = new ProgressDialog(ForgotPassword.this,
+                    R.style.AppTheme_Dark_Dialog);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Authenticating...");
+            progressDialog.show();
+            Log.i("URL->", url);
+            RequestQueue queue = Volley.newRequestQueue(this);
+            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Logger.addLogAdapter(new AndroidLogAdapter());
+                            Log.d("Response-> ", response);
+                            progressDialog.dismiss();
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                Logger.json(jsonObject.toString());
+                                if (java.util.Objects.equals(jsonObject.getString("status"), "true")) {
+
+                                    new SweetAlertDialog(ForgotPassword.this, SweetAlertDialog.SUCCESS_TYPE)
+                                            .setTitleText("Password Updated !!")
+                                            .setContentText("" + jsonObject.getString("reason"))
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    sDialog.dismissWithAnimation();
+                                                    Intent loginIntent = new Intent(ForgotPassword.this, LoginActivity.class);
+                                                    startActivity(loginIntent);
+                                                    ForgotPassword.this.finish();
+                                                }
+                                            })
+                                            .show();
+
+                                } else {
+                                    new SweetAlertDialog(ForgotPassword.this, SweetAlertDialog.ERROR_TYPE)
+                                            .setTitleText("Oops...")
+                                            .setContentText("" + jsonObject.getString("reason"))
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    sDialog.dismissWithAnimation();
+                                                }
+                                            })
+                                            .show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            Log.d("Error.Response", error.toString());
+                            new SweetAlertDialog(ForgotPassword.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("Oops...")
+                                    .setContentText("Network Error !!")
+                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sDialog) {
+                                            sDialog.dismissWithAnimation();
+                                        }
+                                    })
+                                    .show();
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
 //                codeToSend = otpEt.getText().toString();
-                params.put("userid",id);
-                params.put("new_password",updatedPassword.getText().toString());
-                Logger.i("->" + params.toString());
-                return params;
-            }
-        };
-        postRequest.setShouldCache(false);
-        queue.getCache().clear();
-        queue.add(postRequest);
+                    params.put("userid", id);
+                    params.put("new_password", updatedPassword.getText().toString());
+                    Logger.i("->" + params.toString());
+                    return params;
+                }
+            };
+            postRequest.setShouldCache(false);
+            queue.getCache().clear();
+            queue.add(postRequest);
+        }
     }
 
     private void forgotPassword(){

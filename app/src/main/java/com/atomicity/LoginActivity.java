@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_SIGNUP = 0;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-
+    ProgressDialog progressDialog;
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_login) Button _loginButton;
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
+        progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
@@ -178,10 +178,10 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("Response-> ", response);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-
                             Logger.json(jsonObject.toString());
                             if (java.util.Objects.equals(jsonObject.getString("status"), "true"))
                             {
+                                progressDialog.dismiss();
                                 JSONObject userDetails = jsonObject.getJSONObject("userdetails");
                                 editor = sharedPreferences.edit();
                                 editor.putString("id",userDetails.getString("id"));
@@ -199,6 +199,7 @@ public class LoginActivity extends AppCompatActivity {
                                 LoginActivity.this.finish();
                             }
                             else {
+                                progressDialog.dismiss();
                                 new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.ERROR_TYPE)
                                         .setTitleText("Oops...")
                                         .setContentText("" +jsonObject.getString("reason"))
@@ -223,6 +224,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.toString());
+                        progressDialog.dismiss();
                         new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Oops...")
                                 .setContentText("Something went wrong!")
